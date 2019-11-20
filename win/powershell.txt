@@ -4,3 +4,5 @@ Get-ADPrincipalGroupMembership <username> | select name
 #Check if user is enabled
  get-aduser <username> | select samaccountname,enabled
 
+#Change Password
+Set-AdAccountPassword -Identity <username> -OldPassword (Read-Host -asSecureString "Enter the current password") -NewPassword (Read-Host -asSecureString "Enter the new password")
