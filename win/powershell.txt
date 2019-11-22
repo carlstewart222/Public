@@ -6,3 +6,6 @@ Get-ADPrincipalGroupMembership <username> | select name
 
 #Change Password
 Set-AdAccountPassword -Identity <username> -OldPassword (Read-Host -asSecureString "Enter the current password") -NewPassword (Read-Host -asSecureString "Enter the new password")
+
+#Find all running services on a server
+Get-Service -ComputerName <server> | Where-Object {$_.Status -eq "Running"}
