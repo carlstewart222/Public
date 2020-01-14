@@ -14,4 +14,4 @@ Get-Service -ComputerName <server> | Where-Object {$_.Status -eq "Running"}
 "{0} MB" -f ((Get-ChildItem <Folder> -Recurse | Measure-Object -Property Length -Sum -ErrorAction Stop).Sum / 1MB)
 
 #Check Disk Usage remote
-Invoke-Command -ComputerName <computername> {Get-PSDrive C} | Select-Object Used,Free
+Invoke-Command -ComputerName <ComputerName> {Get-PSDrive -PSProvider FileSystem }  | Select-Object root,@{Name="Used (GB)"; Expression={[math]::Round($_.used / 1GB,2)}},@{Name="Free (GB)"; Expression={[math]::Round($_.Free / 1GB,2)}} | Format-Table
