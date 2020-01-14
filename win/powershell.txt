@@ -10,5 +10,8 @@ Set-AdAccountPassword -Identity <username> -OldPassword (Read-Host -asSecureStri
 #Find all running services on a server
 Get-Service -ComputerName <server> | Where-Object {$_.Status -eq "Running"}
 
-#Check the size of a folder
-"{0} MB" -f ((Get-ChildItem C:\users\ -Recurse | Measure-Object -Property Length -Sum -ErrorAction Stop).Sum / 1MB)
+#Check the size of a folder local
+"{0} MB" -f ((Get-ChildItem <Folder> -Recurse | Measure-Object -Property Length -Sum -ErrorAction Stop).Sum / 1MB)
+
+#Check Disk Usage remote
+Invoke-Command -ComputerName <computername> {Get-PSDrive C} | Select-Object Used,Free
