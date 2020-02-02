@@ -15,3 +15,7 @@ Get-Service -ComputerName <server> | Where-Object {$_.Status -eq "Running"}
 
 #Check Disk Usage remote
 Invoke-Command -ComputerName <ComputerName> {Get-PSDrive -PSProvider FileSystem }  | Select-Object root,@{Name="Used (GB)"; Expression={[math]::Round($_.used / 1GB,2)}},@{Name="Free (GB)"; Expression={[math]::Round($_.Free / 1GB,2)}} | Format-Table
+
+#Find Uptime on a remote server
+$computer = "<computerName>"
+(Get-Date) - [Management.ManagementDateTimeConverter]::ToDateTime((Get-WmiObject Win32_OperatingSystem -ComputerName $computer).LastBootUpTime)
