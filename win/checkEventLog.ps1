@@ -1,10 +1,11 @@
 $computer = "<computer>"
+$logname = "<logname>"
 $spacer = "----------------------------------------"
 
 echo $computer
 
 #Get latest n number of errors
-$Events = Get-EventLog -LogName Rightfax -ComputerName $computer -EntryType Error -Newest 100
+$Events = Get-EventLog -LogName $logname -ComputerName $computer -EntryType Error -Newest 100
 
 #Get last 24 hours
 #$Events = Get-EventLog -LogName Rightfax -ComputerName $computer -EntryType Error -After (Get-Date).AddHours(-24)
