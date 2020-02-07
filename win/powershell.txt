@@ -19,3 +19,7 @@ Invoke-Command -ComputerName <ComputerName> {Get-PSDrive -PSProvider FileSystem 
 #Find Uptime on a remote server
 $computer = "<computerName>"
 (Get-Date) - [Management.ManagementDateTimeConverter]::ToDateTime((Get-WmiObject Win32_OperatingSystem -ComputerName $computer).LastBootUpTime) | Format-Table
+
+#Check File Shares on a remote server
+$cim = New-CimSession -ComputerName <computerName>
+Get-SmbShare -CimSession $cim
