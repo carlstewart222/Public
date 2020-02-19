@@ -3,3 +3,9 @@ These are code snippets copied from the internet in an untested state
 #Find Software on remote computer
 Get-CimInstance -ComputerName (Get-Content C:\Temp\Computer.txt) -ClassName win32_product -ErrorAction SilentlyContinue| Select-Object PSComputerName, Name, PackageName, InstallDate | Out-GridView
 
+$Server = "<Server>"
+$credential = Get-Credential # enter credentials for remote machine
+$session = New-PSSession -ComputerName $Server -Credential $credential
+Invoke-Command -Session $session -ScriptBlock {
+    Get-EventLog # parameters
+}
