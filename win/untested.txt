@@ -3,9 +3,21 @@ These are code snippets copied from the internet in an untested state
 #Find Software on remote computer
 Get-CimInstance -ComputerName (Get-Content C:\Temp\Computer.txt) -ClassName win32_product -ErrorAction SilentlyContinue| Select-Object PSComputerName, Name, PackageName, InstallDate | Out-GridView
 
-$Server = "<Server>"
-$credential = Get-Credential # enter credentials for remote machine
-$session = New-PSSession -ComputerName $Server -Credential $credential
-Invoke-Command -Session $session -ScriptBlock {
-    Get-EventLog # parameters
-}
+#Exporting SecureString from Plain text
+"P@ssword1" | ConvertTo-SecureString -AsPlainText -Force | ConvertFrom-SecureString | Out-File "C:\Temp 2\Password.txt"
+
+#Exporting SecureString from Get-Credential
+(Get-Credential).Password | ConvertFrom-SecureString | Out-File "C:\Temp 2\Password.txt"
+
+#Exporting SecureString from Read-Host
+Read-Host "Enter Password" -AsSecureString |  ConvertFrom-SecureString | Out-File "C:\Temp 2\Password.txt"
+
+#Creating SecureString object
+$pass = Get-Content "C:\Temp 2\Password.txt" | ConvertTo-SecureString
+
+#Creating PSCredential object
+
+$User = "MyUserName"
+$File = "C:\Temp 2\Password.txt"
+$MyCredential=New-Object -TypeName System.Management.Automation.PSCredential `
+ -ArgumentList $User, (Get-Content $File | ConvertTo-SecureString)
