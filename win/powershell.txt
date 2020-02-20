@@ -1,6 +1,9 @@
 #Find all the groups a user is in
 Get-ADPrincipalGroupMembership <username> | select name
 
+#Check if user is locked out
+get-aduser adcbq8f -Properties * | Select-Object LockedOut
+
 #Check if user is enabled
  get-aduser <username> | select samaccountname,enabled
 
