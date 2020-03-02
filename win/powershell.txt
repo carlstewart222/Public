@@ -26,3 +26,7 @@ $computer = "<computerName>"
 #Check File Shares on a remote server
 $cim = New-CimSession -ComputerName <computerName>
 Get-SmbShare -CimSession $cim
+
+#Search for users
+$filt='*testuser*'
+get-aduser -f {name -like $filt} | format-list name
