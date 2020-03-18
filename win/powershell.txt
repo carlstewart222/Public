@@ -29,3 +29,6 @@ Get-SmbShare -CimSession $cim
 
 #Search for users
 get-aduser -f {name -like '<id>'} -Properties * | Select-Object name,whenCreated 
+
+#Create multiple folders
+ 1..5 | foreach {MD ".\Client$_\Inbox"}
