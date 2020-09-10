@@ -32,3 +32,6 @@ get-aduser -f {name -like '<id>'} -Properties * | Select-Object name,whenCreated
 
 #Create multiple folders
  1..5 | foreach {MD ".\Client$_\Inbox"}
+ 
+ #Find all shares, and export to a csv file
+ Get-SmbShare | select name,path | Format-Table | Export-Csv share.csv
