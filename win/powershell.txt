@@ -33,5 +33,15 @@ get-aduser -f {name -like '<id>'} -Properties * | Select-Object name,whenCreated
 #Create multiple folders
  1..5 | foreach {MD ".\Client$_\Inbox"}
  
- #Find all shares, and export to a csv file
- Get-SmbShare | select name,path | Format-Table | Export-Csv share.csv
+ #Find all shares
+ Get-SmbShare | select name,path | Format-Table 
+ 
+ #Find current logged in user
+ $env:UserName
+ 
+ #Find logged in sessions on remote Server
+ Invoke-Command -Computername <Server> -ScriptBlock { quser }
+
+#Close session on remote server
+ Invoke-Command -Computername <Server> -ScriptBlock { logoff <SessionNumber> }
+ 
