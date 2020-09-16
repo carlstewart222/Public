@@ -45,3 +45,5 @@ get-aduser -f {name -like '<id>'} -Properties * | Select-Object name,whenCreated
 #Close session on remote server
  Invoke-Command -Computername <Server> -ScriptBlock { logoff <SessionNumber> }
  
+#Find the version of powershell running on local
+Get-Host | Select-Object Version
