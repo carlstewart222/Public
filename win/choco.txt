@@ -1,0 +1,7 @@
+
+
+
+
+#Check fo r items installed by chocolately
+choco list --localonly  
+
