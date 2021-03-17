@@ -47,3 +47,9 @@ get-aduser -f {name -like '<id>'} -Properties * | Select-Object name,whenCreated
  
 #Find the version of powershell running on local
 Get-Host | Select-Object Version
+
+#Check Uptime on local PC
+(get-date) - (gcim Win32_OperatingSystem).LastBootUpTime
+
+#Check open ports on local 
+get-nettcpconnection | select local*,remote*,state,@{Name="Process";Expression={(Get-Process -Id $_.OwningProcess).ProcessName}} | sort LocalPort | Format-Table -AutoSize
