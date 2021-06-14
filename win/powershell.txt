@@ -53,3 +53,6 @@ Get-Host | Select-Object Version
 
 #Check open ports on local 
 get-nettcpconnection | select local*,remote*,state,@{Name="Process";Expression={(Get-Process -Id $_.OwningProcess).ProcessName}} | sort LocalPort | Format-Table -AutoSize
+
+#Count the number of files in a local directory
+(Get-ChildItem -Recurse -file | Measure-Object).Count
