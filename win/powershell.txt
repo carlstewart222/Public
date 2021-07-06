@@ -56,3 +56,10 @@ get-nettcpconnection | select local*,remote*,state,@{Name="Process";Expression={
 
 #Count the number of files in a local directory
 (Get-ChildItem -Recurse -file | Measure-Object).Count
+
+
+#Check if IIS is installed
+$IIS = Get-WindowsOptionalFeature -Online -FeatureName “IIS-WebServer”
+if ($IIS.State -eq "Disabled") { 
+    Enable-WindowsOptionalFeature -FeatureName $IIS.FeatureName -Online
+}
