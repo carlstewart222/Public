@@ -21,3 +21,5 @@ $User = "MyUserName"
 $File = "C:\Temp 2\Password.txt"
 $MyCredential=New-Object -TypeName System.Management.Automation.PSCredential `
  -ArgumentList $User, (Get-Content $File | ConvertTo-SecureString)
+
+#Add extra characters to the end of a file
