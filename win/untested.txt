@@ -24,3 +24,6 @@ $MyCredential=New-Object -TypeName System.Management.Automation.PSCredential `
 
 #Add extra characters to the end of a file
 gc addline.txt | %{$_ -replace '$',',"","","",'} | out-file dataoutput.txt
+
+#Set a DC for powershell session
+$PSDefaultParameterValues.Add("*-AD*:Server","dc01.adataum.com")
