@@ -66,3 +66,6 @@ $IIS = Get-WindowsOptionalFeature -Online -FeatureName “IIS-WebServer”
 if ($IIS.State -eq "Disabled") { 
     Enable-WindowsOptionalFeature -FeatureName $IIS.FeatureName -Online
 }
+
+#reset local password
+Nltest.exe /sc_change_pwd:<domain>
