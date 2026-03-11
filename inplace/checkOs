@@ -1,0 +1,18 @@
+---
+- name: Check for Windows Server 2016
+  hosts: windows
+  gather_facts: yes
+  tasks:
+    - name: Verify if the OS is Windows Server 2016
+      debug:
+        msg: "This system is running Windows Server 2016."
+      # Windows Server 2016 reports version 10.0.14393
+      when: ansible_distribution_version == '10.0.14393'
+
+    - name: Alternative check using OS name
+      debug:
+        msg: "Confirmed: {{ ansible_distribution_name }} detected."
+      when: "'2016' in ansible_distribution_name"
+//Windows Server 2016	10.0.14393
+//Windows Server 2019	10.0.17763
+//Windows Server 2022	10.0.20348
