@@ -1,0 +1,32 @@
+---
+- name: Windows Storage Check and DISM Execution
+  hosts: windows
+  gather_facts: yes
+  vars:
+    required_free_gb: 40
+  tasks:
+    - name: Check free space on C drive
+      win_shell: |
+        $drive = Get-PSDrive C
+        $freeGB = [math]::Round($drive.Free / 1GB, 2)
+        return $freeGB
+      register: c_drive_free
+      changed_when: false
+
+    - name: Fail if less than 40GB free
+      assert:
+        that:
+          - c_drive_free.stdout | float >= required_free_gb
+        fail_msg: "Insufficient disk space. Found {{ c_drive_free.stdout }}GB, but {{ required_free_gb }}GB is required."
+        success_msg: "Disk space check passed: {{ c_drive_free.stdout }}GB available."
+
+    - name: Run DISM to check health
+      win_dism:
+        image: null
+        online: yes
+        check_health: yes
+      register: dism_result
+
+    - name: Show DISM output
+      debug:
+        var: dism_result
